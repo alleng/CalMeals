@@ -18,13 +18,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical" >
 
-    <ImageView
-        android:id="@+id/chromebar"
-        android:layout_width="fill_parent"
-        android:layout_height="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/chromebar" />
 
 
     </RelativeLayout>

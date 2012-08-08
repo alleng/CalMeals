@@ -1,10 +1,10 @@
-	/**
-	 * A fragment representing the Calmeals title bar
-	 * at the top of the main menu.
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
+/**
+ * A fragment representing the Calmeals title bar
+ * at the top of the main menu.
+ * 
+ * @author Jeff Butterfield and Shouvik Dutta
+ * 
+ */
 
 package com.appspot.berkeleydining;
 
@@ -13,8 +13,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 
 public class TitleBarFragment extends Fragment {
 
@@ -31,6 +29,5 @@ public class TitleBarFragment extends Fragment {
 		View v = inflater.inflate(R.layout.titlebarlayout, container, false);
 		return v;
 	}
-
 
 }

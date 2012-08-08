@@ -37,6 +37,7 @@ public class MainFragment extends Fragment {
 		ImageButton breakfastButton = (ImageButton) v
 				.findViewById(R.id.breakfastbutton);
 		breakfastButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 
 				commitMenuFragments();
@@ -51,6 +52,7 @@ public class MainFragment extends Fragment {
 		ImageButton lunchButton = (ImageButton) v
 				.findViewById(R.id.lunchbutton);
 		lunchButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				commitMenuFragments();
 				((CalMealsActivity) getActivity()).setCurrentMeal("Lunch");
@@ -63,6 +65,7 @@ public class MainFragment extends Fragment {
 		ImageButton dinnerButton = (ImageButton) v
 				.findViewById(R.id.dinnerbutton);
 		dinnerButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 
 				commitMenuFragments();
@@ -76,6 +79,7 @@ public class MainFragment extends Fragment {
 		ImageButton latenightButton = (ImageButton) v
 				.findViewById(R.id.latenightbutton);
 		latenightButton.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View view) {
 				commitMenuFragments();
 				((CalMealsActivity) getActivity()).setCurrentMeal("LateNight");
@@ -113,11 +117,11 @@ public class MainFragment extends Fragment {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			Fragment topf = fragMan.findFragmentById(R.id.Title);
-			Fragment topfNew = new TitleBarRefreshFragment();
-			ft1 = fragMan.beginTransaction();
-			ft1.remove(topf);
-			ft1.add(R.id.Title, topfNew);
+			// Fragment topf = fragMan.findFragmentById(R.id.Title);
+			// Fragment topfNew = new TitleBarRefreshFragment();
+			// ft1 = fragMan.beginTransaction();
+			// ft1.remove(topf);
+			// ft1.add(R.id.Title, topfNew);
 
 			Fragment f = fragMan.findFragmentById(R.id.Main);
 			Fragment f2 = new MenusFragment();
@@ -151,7 +155,7 @@ public class MainFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Void unused) {
-			ft1.commit();
+			// ft1.commit();
 			ft2.commit();
 			ft3.commit();
 		}

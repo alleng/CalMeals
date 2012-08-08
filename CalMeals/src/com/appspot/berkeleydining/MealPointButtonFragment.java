@@ -45,14 +45,16 @@ public class MealPointButtonFragment extends Fragment {
 		View v = inflater.inflate(R.layout.mpbutton_layout, container, false);
 		final ImageButton button = (ImageButton) v.findViewById(R.id.button1);
 		button.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 
-				
-				//Checks for previously fetched balances, temporary or stored, before
-				//prompting for username and password.
+				// Checks for previously fetched balances, temporary or stored,
+				// before
+				// prompting for username and password.
 				if ((pointStored != null && debitStored != null)
 						|| (pointsTemp != null && debitTemp != null)) {
-					((CalMealsActivity) getActivity()).setBottomFragStatus("loaded");
+					((CalMealsActivity) getActivity())
+							.setBottomFragStatus("loaded");
 					final FragmentManager fragMan = getActivity()
 							.getSupportFragmentManager();
 					Fragment f = fragMan.findFragmentById(R.id.BottomFrag);

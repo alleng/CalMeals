@@ -26,7 +26,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -38,10 +37,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
 
-public class CalMealsActivity extends FragmentActivity {
+public class CalMealsActivity extends SherlockFragmentActivity {
 	boolean shouldResume = false;
 
 	/** Called when the activity is first created. */
@@ -49,6 +49,8 @@ public class CalMealsActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		sharedPrefSettings = getSharedPreferences("Prefs", 0);
 		editor = sharedPrefSettings.edit();
@@ -63,7 +65,7 @@ public class CalMealsActivity extends FragmentActivity {
 		fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		fragmentTransaction.add(R.id.Title, new TitleBarFragment());
+		// fragmentTransaction.add(R.id.Title, new TitleBarFragment());
 		fragmentTransaction.add(R.id.Main, new MainFragment());
 		fragmentTransaction.replace(R.id.BottomFrag,
 				new MealPointButtonFragment());
@@ -81,6 +83,7 @@ public class CalMealsActivity extends FragmentActivity {
 				.setTitle("Check Balances")
 				.setPositiveButton("Login",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								final EditText et1 = (EditText) textEntryView
@@ -98,6 +101,7 @@ public class CalMealsActivity extends FragmentActivity {
 						})
 				.setNegativeButton("Cancel",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 
@@ -126,6 +130,7 @@ public class CalMealsActivity extends FragmentActivity {
 				.setTitle("Rate this Meal")
 				.setPositiveButton("Submit",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 
@@ -194,6 +199,7 @@ public class CalMealsActivity extends FragmentActivity {
 						})
 				.setNegativeButton("Cancel",
 						new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 
@@ -258,18 +264,19 @@ public class CalMealsActivity extends FragmentActivity {
 			if (loginFailed) {
 				setBottomFragStatus("unpressed");
 				final AlertDialog alertDialog = new AlertDialog.Builder(
-						CalMealsActivity.this).create();
-				alertDialog.setTitle("Invalid Login");
-				alertDialog.setMessage("Please try again.");
-				alertDialog.setButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
+						CalMealsActivity.this)
+						.setTitle("Invalid Login")
+						.setMessage("Please try again.")
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
 
-								alertDialog.dismiss();
+										dialog.dismiss();
 
-							}
-						});
+									}
+								}).create();
 
 				Fragment mf = fragmentManager.findFragmentById(R.id.Main);
 				if (mf.getClass().getName()
@@ -306,7 +313,6 @@ public class CalMealsActivity extends FragmentActivity {
 				}
 			}
 		}
-
 	}
 
 	/**
@@ -317,6 +323,7 @@ public class CalMealsActivity extends FragmentActivity {
 		final CharSequence[] items = { "Refresh", "Logout", "Cancel" };
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setItems(items, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int item) {
 				if (item == 0) {
 					if ((usernameTemporary != null && passwordTemporary != null)) {
@@ -563,7 +570,7 @@ public class CalMealsActivity extends FragmentActivity {
 	public void restoreTopFragment() {
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		fragmentTransaction.replace(R.id.Title, new TitleBarFragment());
+		// fragmentTransaction.replace(R.id.Title, new TitleBarFragment());
 		fragmentTransaction.commit();
 	}
 

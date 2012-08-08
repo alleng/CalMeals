@@ -6,5 +6,5 @@
  android:background="#66DDDDDD"
  android:padding="0dp"
  android:textColor="#000000"
- android:textSize="16sp" >  
+ android:textSize="20sp" >  
 </TextView>  

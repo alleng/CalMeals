@@ -37,7 +37,9 @@
 		android:padding="0dp"
 		android:src="@drawable/calmeals_logo"
 		android:layout_gravity="center_horizontal" />
-
+
+
+
         <ImageButton
             android:id="@+id/refresh"
             android:layout_width="wrap_content"
@@ -53,14 +55,5 @@
     </RelativeLayout>
 </FrameLayout>
 
-    
-         <ImageView 
-            android:layout_width="fill_parent"
-            android:layout_height="5dp"
-            android:src="@drawable/chromebar"
-            
-            >
-            
-        </ImageView>
 
 </LinearLayout>

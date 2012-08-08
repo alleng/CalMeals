@@ -314,7 +314,6 @@ public class MenusFragment extends Fragment {
 			return null;
 		}
 
-		
 		@Override
 		public String getPageTitle(int position) {
 			String[] titles = { "Foothill", "Crossroads", "Cafe 3",

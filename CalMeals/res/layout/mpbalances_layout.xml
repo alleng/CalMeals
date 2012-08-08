@@ -5,17 +5,7 @@
         android:orientation="vertical"
         android:background="@drawable/mpbar">
 
-        
-        
-    
-         <ImageView 
-            android:layout_width="fill_parent"
-            android:layout_height="5dp"
-            android:src="@drawable/chromebar"
             
-            >
-            
-        </ImageView>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"

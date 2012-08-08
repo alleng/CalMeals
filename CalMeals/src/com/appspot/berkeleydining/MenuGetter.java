@@ -1,10 +1,10 @@
-	/**
-	 * Facilitates the HTTP operations required to attain
-	 * the menu data by way of a Gson script. 
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
+/**
+ * Facilitates the HTTP operations required to attain
+ * the menu data by way of a Gson script. 
+ * 
+ * @author Jeff Butterfield and Shouvik Dutta
+ * 
+ */
 
 package com.appspot.berkeleydining;
 
@@ -33,8 +33,9 @@ public class MenuGetter {
 			HttpGet get = new HttpGet("http://berkeleydining.appspot.com/menu");
 			BasicHttpContext context = new BasicHttpContext();
 			HttpResponse response2 = client.execute(get, context);
-			if (response2.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+			if (response2.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
 				throw new IOException(response2.getStatusLine().toString());
+			}
 			BufferedReader rd2 = new BufferedReader(new InputStreamReader(
 					response2.getEntity().getContent()));
 			while ((line = rd2.readLine()) != null) {

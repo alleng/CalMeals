@@ -1,10 +1,10 @@
-	/**
-	 * Facilitates the various HTTP POST requests that are needed 
-	 * to retrieve student balances. 
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
+/**
+ * Facilitates the various HTTP POST requests that are needed 
+ * to retrieve student balances. 
+ * 
+ * @author Jeff Butterfield and Shouvik Dutta
+ * 
+ */
 
 package com.appspot.berkeleydining;
 
@@ -30,8 +30,9 @@ import org.apache.http.protocol.HttpContext;
 
 public class GetCalCard {
 
-	/**Returns a pair of Meal Point and Debit balances after performing several HTTP
-	 * operations.
+	/**
+	 * Returns a pair of Meal Point and Debit balances after performing several
+	 * HTTP operations.
 	 * 
 	 * @param username
 	 * @param password
@@ -41,7 +42,8 @@ public class GetCalCard {
 		HttpClient client = new DefaultHttpClient();
 		HttpParams params = client.getParams();
 		HttpClientParams.setRedirecting(params, true);
-		HttpPost post = new HttpPost("https://auth.berkeley.edu/cas/login?service=https://services.housing.berkeley.edu/c1c/dyn/CasLogin.asp");
+		HttpPost post = new HttpPost(
+				"https://auth.berkeley.edu/cas/login?service=https://services.housing.berkeley.edu/c1c/dyn/CasLogin.asp");
 		try {
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair("username", username));
@@ -54,8 +56,9 @@ public class GetCalCard {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 			HttpResponse response = client.execute(post);
 			response.getEntity().consumeContent();
-			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
 				throw new IOException(response.getStatusLine().toString());
+			}
 			String line = "";
 			HttpGet get = new HttpGet(
 					"https://services.housing.berkeley.edu/c1c/dyn/balance.asp");
@@ -72,8 +75,9 @@ public class GetCalCard {
 			response = client.execute(post);
 			response.getEntity().consumeContent();
 			response2 = client.execute(get, context);
-			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
 				throw new IOException(response.getStatusLine().toString());
+			}
 			rd2 = new BufferedReader(new InputStreamReader(response2
 					.getEntity().getContent()));
 			String[] resultPair = new String[2];
@@ -87,13 +91,13 @@ public class GetCalCard {
 					break;
 				}
 				if (line.contains("Debit:")) {
-					
+
 					String[] debitComp = rd2.readLine().split("<b>|</b>");
 					resultPair[0] = debitComp[1];
 					continue;
 				}
 				if (line.contains("Plans:")) {
-					
+
 					String[] debitComp = rd2.readLine().split("<b>|</b>");
 					resultPair[1] = debitComp[1];
 					break;

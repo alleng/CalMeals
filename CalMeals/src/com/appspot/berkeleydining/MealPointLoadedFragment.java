@@ -54,6 +54,7 @@ public class MealPointLoadedFragment extends Fragment {
 		debitVal.setText(debitText);
 		final ImageButton button = (ImageButton) v.findViewById(R.id.button2);
 		button.setOnClickListener(new View.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				// if (!((DashboardTesterActivity)
 				// getActivity()).getBalanceRequested()) {

@@ -1,10 +1,10 @@
-	/**
-	 * A class that holds the most recently fetched
-	 * data from the server. 
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
+/**
+ * A class that holds the most recently fetched
+ * data from the server. 
+ * 
+ * @author Jeff Butterfield and Shouvik Dutta
+ * 
+ */
 
 package com.appspot.berkeleydining;
 

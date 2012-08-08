@@ -1,10 +1,10 @@
-	/**
-	 * A class that contains all the dining locations of the
-	 * menus. 
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
+/**
+ * A class that contains all the dining locations of the
+ * menus. 
+ * 
+ * @author Jeff Butterfield and Shouvik Dutta
+ * 
+ */
 
 package com.appspot.berkeleydining;
 
