@@ -1,0 +1,131 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/mpbar">
+
+        
+        
+    
+         <ImageView 
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:src="@drawable/chromebar"
+            
+            >
+            
+        </ImageView>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    >
+
+    <ImageButton
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="0dp"
+        android:background="@layout/mpbuttonlayout_selector" />
+         
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <View
+            android:id="@+id/centerview"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_centerInParent="true"
+            ></View>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeLayout2"
+        android:layout_above="@id/centerview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+            
+                    <View
+            android:id="@+id/uppercenterview"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            ></View>
+                    
+         <TextView
+            android:id="@+id/pointsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toLeftOf="@id/uppercenterview"
+            android:paddingRight="15dp"
+            android:layout_alignBottom="@id/uppercenterview"
+            android:layout_centerHorizontal="true"
+            android:text="Points"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+                  <TextView
+            android:id="@+id/pointsVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toRightOf="@id/uppercenterview"
+            android:paddingLeft="15dp"
+            android:layout_alignBottom="@id/uppercenterview"
+            android:layout_centerHorizontal="true"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+        </RelativeLayout>
+            
+        
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/relativeLayout3"
+        android:layout_below="@id/centerview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+            
+                    <View
+            android:id="@+id/lowercenterview"
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            ></View>
+                    
+         <TextView
+            android:id="@+id/debitText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toLeftOf="@id/lowercenterview"
+            android:paddingRight="15dp"
+            android:layout_alignTop="@id/centerview"
+            android:layout_centerHorizontal="true"
+            android:text="Debit"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+                  <TextView
+            android:id="@+id/debitVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toRightOf="@id/lowercenterview"
+            android:paddingLeft="15dp"
+            android:layout_alignTop="@id/relativeLayout3"
+            android:layout_centerHorizontal="true"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+         
+        </RelativeLayout>
+            
+        
+
+    </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

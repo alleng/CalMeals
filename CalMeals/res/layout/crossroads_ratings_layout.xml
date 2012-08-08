@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical" >
+
+    <ImageView 
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:src="@drawable/chromebar"
+            
+            >
+            
+        </ImageView>
+        
+        
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="Small Text"
+            android:textSize="10dp" />
+
+    </LinearLayout>

@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    >
+
+    <ImageButton
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="0dp"
+        android:background="@layout/mpbuttonlayout_selector" />
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/frameLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical" >
+
+    <ImageView
+        android:id="@+id/chromebar"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/chromebar" />
+
+    <RatingBar
+      android:isIndicator="true"
+      android:id="@+id/ratingBar2"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_centerVertical="true"
+      android:paddingTop="2dp"
+      android:layout_centerHorizontal="true"
+      android:numStars="5"
+      android:rating="3.5" 
+       />
+
+    </RelativeLayout>
+
+    </FrameLayout>

@@ -1,0 +1,85 @@
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@null" >
+
+        
+    	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      	 	 android:id="@+id/linearLayout2"
+      	 	 android:orientation="horizontal"
+      	 	 android:layout_width="fill_parent"
+       		 android:layout_height="0dp"
+       		 android:layout_weight=".5"
+       		 
+       		 >
+    	
+    	    
+    	    
+    	    <ImageButton
+    	     android:id="@+id/breakfastbutton"
+    	     android:layout_width="0dp"
+       		 android:layout_height="fill_parent"
+       		 android:layout_weight=".5"
+       		 android:src="@layout/breakfast_button_layout"
+       		 android:background="@null"
+       		 android:scaleType="fitCenter"
+       		 android:padding="0dp">
+    	        
+    	    </ImageButton>
+    	    
+    	    <ImageButton
+    	     android:id="@+id/lunchbutton"
+    	     android:layout_width="0dp"
+       		 android:layout_height="fill_parent"
+       		 android:layout_weight=".5"
+       		 android:src="@layout/lunch_button_layout"
+       		 android:background="@null"
+       		 android:scaleType="fitCenter"
+       		 android:padding="0dp">
+    	        
+    	    </ImageButton>
+       		 
+    	</LinearLayout>
+    	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      	 	 android:id="@+id/linearLayout2"
+      	 	 android:orientation="horizontal"
+      	 	 android:layout_width="fill_parent"
+       		 android:layout_height="0dp"
+       		 android:layout_weight=".5"
+       		 >
+    	    
+    	    <ImageButton
+    	     android:id="@+id/dinnerbutton"
+    	     android:layout_width="0dp"
+       		 android:layout_height="fill_parent"
+       		 android:layout_weight=".5"
+       		 android:src="@layout/dinner_button_layout"
+       		 android:background="@null"
+       		 android:scaleType="fitCenter"
+       		 android:padding="0dp"
+       		 android:text="haha">
+    	        
+    	    </ImageButton>
+    	        
+    	    <ImageButton
+    	     android:id="@+id/latenightbutton"
+    	     android:layout_width="0dp"
+       		 android:layout_height="fill_parent"
+       		 android:layout_weight=".5"
+       		 android:src="@layout/latenight_button_layout"
+       		 android:background="@null"
+       		 android:scaleType="fitCenter"
+       		 android:padding="0dp"
+       		 android:text="haha">
+    	        
+    	    </ImageButton>
+       		 
+    	</LinearLayout>
+        
+
+        
+        
+    </LinearLayout>
