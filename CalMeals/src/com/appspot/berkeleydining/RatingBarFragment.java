@@ -23,8 +23,8 @@ public class RatingBarFragment extends Fragment {
 			Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.firstrating_layout, container, false);
 		float userRating = -1;
-		currentHall = ((CalMealsActivity) getActivity()).getCurrentHall();
-		currentMeal = ((CalMealsActivity) getActivity()).getCurrentMeal();
+		currentHall = ((MenuActivity) getActivity()).getCurrentHall();
+		currentMeal = ((MenuActivity) getActivity()).getCurrentMeal();
 		Log.i("ratingBarFragment", currentMeal);
 		if (currentHall.equals(CurrentMenu.halls.Crossroads)) {
 			if (currentMeal.equals("Breakfast")
@@ -91,7 +91,7 @@ public class RatingBarFragment extends Fragment {
 		b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((CalMealsActivity) getActivity()).showRatingAlert();
+				((MenuActivity) getActivity()).showRatingAlert();
 			}
 		});
 

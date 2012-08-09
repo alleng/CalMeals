@@ -11,7 +11,6 @@ package com.appspot.berkeleydining;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,10 +23,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
 
-public class IntroLoadDataActivity extends Activity {
+public class IntroLoadDataActivity extends SherlockActivity {
 
 	int count = 0;
 	DiningHalls dining;
@@ -56,6 +56,7 @@ public class IntroLoadDataActivity extends Activity {
 		sharedPrefSettings = getSharedPreferences("Prefs", 0);
 		tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.startNewSession("UA-31032997-1", this);
+		getSupportActionBar().hide();
 		downloadData();
 	}
 

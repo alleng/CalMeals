@@ -8,6 +8,7 @@
 
 package com.appspot.berkeleydining;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,9 @@ public class MainFragment extends Fragment {
 			public void onClick(View view) {
 
 				commitMenuFragments();
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Breakfast");
+                startActivity(i);
 				((CalMealsActivity) getActivity()).setCurrentMeal("Breakfast");
 				((CalMealsActivity) getActivity())
 						.setCurrentHall(CurrentMenu.halls.Crossroads);
@@ -55,6 +59,9 @@ public class MainFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				commitMenuFragments();
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Lunch");
+                startActivity(i);
 				((CalMealsActivity) getActivity()).setCurrentMeal("Lunch");
 				((CalMealsActivity) getActivity())
 						.setCurrentHall(CurrentMenu.halls.Crossroads);
@@ -67,8 +74,10 @@ public class MainFragment extends Fragment {
 		dinnerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
 				commitMenuFragments();
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Dinner");
+                startActivity(i);
 				((CalMealsActivity) getActivity()).setCurrentMeal("Dinner");
 				((CalMealsActivity) getActivity())
 						.setCurrentHall(CurrentMenu.halls.Crossroads);
@@ -82,6 +91,9 @@ public class MainFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				commitMenuFragments();
+				Intent i = new Intent(getActivity(), MenuActivity.class);
+				i.putExtra("currentMeal", "LateNight");
+                startActivity(i);
 				((CalMealsActivity) getActivity()).setCurrentMeal("LateNight");
 				((CalMealsActivity) getActivity())
 						.setCurrentHall(CurrentMenu.halls.Crossroads);
@@ -97,7 +109,7 @@ public class MainFragment extends Fragment {
 	public void commitMenuFragments() {
 
 		ChangeMainFrag ctask = new ChangeMainFrag();
-		ctask.execute((Void[]) null);
+		// ctask.execute((Void[]) null);
 
 	}
 
