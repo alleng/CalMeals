@@ -9,11 +9,8 @@
 package com.appspot.berkeleydining;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,14 +37,9 @@ public class MainFragment extends Fragment {
 		breakfastButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
-				commitMenuFragments();
-                Intent i = new Intent(getActivity(), MenuActivity.class);
-                i.putExtra("currentMeal", "Breakfast");
-                startActivity(i);
-				((CalMealsActivity) getActivity()).setCurrentMeal("Breakfast");
-				((CalMealsActivity) getActivity())
-						.setCurrentHall(CurrentMenu.halls.Crossroads);
+				Intent i = new Intent(getActivity(), MenuActivity.class);
+				i.putExtra("currentMeal", "Breakfast");
+				startActivity(i);
 			}
 
 		});
@@ -58,13 +50,9 @@ public class MainFragment extends Fragment {
 		lunchButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				commitMenuFragments();
-                Intent i = new Intent(getActivity(), MenuActivity.class);
-                i.putExtra("currentMeal", "Lunch");
-                startActivity(i);
-				((CalMealsActivity) getActivity()).setCurrentMeal("Lunch");
-				((CalMealsActivity) getActivity())
-						.setCurrentHall(CurrentMenu.halls.Crossroads);
+				Intent i = new Intent(getActivity(), MenuActivity.class);
+				i.putExtra("currentMeal", "Lunch");
+				startActivity(i);
 			}
 
 		});
@@ -74,13 +62,9 @@ public class MainFragment extends Fragment {
 		dinnerButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				commitMenuFragments();
-                Intent i = new Intent(getActivity(), MenuActivity.class);
-                i.putExtra("currentMeal", "Dinner");
-                startActivity(i);
-				((CalMealsActivity) getActivity()).setCurrentMeal("Dinner");
-				((CalMealsActivity) getActivity())
-						.setCurrentHall(CurrentMenu.halls.Crossroads);
+				Intent i = new Intent(getActivity(), MenuActivity.class);
+				i.putExtra("currentMeal", "Dinner");
+				startActivity(i);
 			}
 
 		});
@@ -90,13 +74,9 @@ public class MainFragment extends Fragment {
 		latenightButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				commitMenuFragments();
 				Intent i = new Intent(getActivity(), MenuActivity.class);
 				i.putExtra("currentMeal", "LateNight");
-                startActivity(i);
-				((CalMealsActivity) getActivity()).setCurrentMeal("LateNight");
-				((CalMealsActivity) getActivity())
-						.setCurrentHall(CurrentMenu.halls.Crossroads);
+				startActivity(i);
 			}
 
 		});
@@ -105,80 +85,10 @@ public class MainFragment extends Fragment {
 
 	}
 
-	/** Executes an AsyncTask to transition */
-	public void commitMenuFragments() {
-
-		ChangeMainFrag ctask = new ChangeMainFrag();
-		// ctask.execute((Void[]) null);
-
-	}
-
-	/**
-	 * An AsyncTask that handles FragmentTransactions involved when
-	 * transitioning from the main page to the menu page.
-	 * 
-	 * @author Jeff Butterfield and Shouvik Dutta
-	 * 
-	 */
-	private class ChangeMainFrag extends AsyncTask<Void, Void, Void> {
-		final FragmentManager fragMan = getActivity()
-				.getSupportFragmentManager();
-		FragmentTransaction ft1;
-		FragmentTransaction ft2;
-		FragmentTransaction ft3;
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			// Fragment topf = fragMan.findFragmentById(R.id.Title);
-			// Fragment topfNew = new TitleBarRefreshFragment();
-			// ft1 = fragMan.beginTransaction();
-			// ft1.remove(topf);
-			// ft1.add(R.id.Title, topfNew);
-
-			Fragment f = fragMan.findFragmentById(R.id.Main);
-			Fragment f2 = new MenusFragment();
-			ft2 = fragMan.beginTransaction();
-			ft2.setCustomAnimations(R.anim.slide_in_right,
-					R.anim.slide_out_left, R.anim.slide_in_left,
-					R.anim.slide_out_right);
-			ft2.remove(f);
-			ft2.add(R.id.Main, f2);
-			ft2.addToBackStack(null);
-
-			Fragment bottomF = fragMan.findFragmentById(R.id.BottomFrag);
-			Fragment bottomFNew;
-			if (((CalMealsActivity) getActivity()).getCurrentMeal().equals(
-					"LateNight")) {
-				bottomFNew = new NoRatingBarFragment();
-			} else {
-				bottomFNew = new RatingBarFragment();
-			}
-			ft3 = fragMan.beginTransaction();
-			savedFrag = bottomF;
-			ft3.remove(bottomF);
-			ft3.add(R.id.BottomFrag, bottomFNew);
-
-			return null;
-		}
-
-		@Override
-		protected void onPreExecute() {
-		}
-
-		@Override
-		protected void onPostExecute(Void unused) {
-			// ft1.commit();
-			ft2.commit();
-			ft3.commit();
-		}
-
-	}
-
 	@Override
 	public void onResume() {
 		super.onResume();
 		((CalMealsActivity) getActivity()).restoreBottomFragment();
-		((CalMealsActivity) getActivity()).restoreTopFragment();
 	}
 
 }

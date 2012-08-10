@@ -3,5 +3,5 @@
         android:title="Refresh"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:icon="@drawable/refreshbutton" />
+        android:icon="@drawable/ic_action_refresh" />
 </menu>

@@ -45,8 +45,6 @@ public class CalMealsActivity extends SherlockFragmentActivity {
         passwordTemporary = null;
         debitBalanceTemporary = null;
         pointsBalanceTemporary = null;
-        currentMeal = null;
-        currentHall = CurrentMenu.halls.Crossroads;
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
@@ -56,7 +54,6 @@ public class CalMealsActivity extends SherlockFragmentActivity {
                 new MealPointButtonFragment());
 
         fragmentTransaction.commit();
-        restoreMiddleFragment();
     }
 
     /** Generates the log-in prompt for accessing Meal Point and Debit Balances. */
@@ -324,73 +321,6 @@ public class CalMealsActivity extends SherlockFragmentActivity {
     }
 
     /**
-     * Executes a RefreshMenuTask that gets the most recent data (menus and
-     * votes) from the web.
-     */
-    public void refreshMenuFragment() {
-        RefreshMenuTask refreshTask = new RefreshMenuTask();
-        refreshTask.execute((Void[]) null);
-
-        GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
-        tracker.startNewSession("UA-31032997-1", this);
-        tracker.setDebug(true);
-        tracker.trackPageView("/menu");
-        tracker.dispatch();
-        tracker.stopSession();
-    }
-
-    /**
-     * AsyncTask to get the most recent data (menus and votes) from the web.
-     * 
-     * @author Jeff Butterfield and Shouvik Dutta
-     * 
-     */
-    private class RefreshMenuTask extends AsyncTask<Void, Void, Void> {
-        DiningHalls dining;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            MenuGetter menu = new MenuGetter();
-            dining = menu.menuFetch();
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            FragmentTransaction fragmentTransaction = fragmentManager
-                    .beginTransaction();
-            fragmentTransaction
-                    .replace(R.id.Main, new RefreshingMenuFragment());
-            fragmentTransaction.commit();
-        }
-
-        @Override
-        protected void onPostExecute(Void unused) {
-            CurrentMenu.halls = dining;
-            FragmentTransaction fragmentTransaction = fragmentManager
-                    .beginTransaction();
-            fragmentTransaction.replace(R.id.Main, new MenusFragment());
-            fragmentTransaction.commit();
-        }
-
-    }
-
-    /** Restores the top Fragment when the user returns to the main menu. */
-    public void restoreTopFragment() {
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        // fragmentTransaction.replace(R.id.Title, new TitleBarFragment());
-        fragmentTransaction.commit();
-    }
-
-    public void restoreMiddleFragment() {
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
-        fragmentTransaction.replace(R.id.Main, new MainFragment());
-        fragmentTransaction.commit();
-    }
-
-    /**
      * Returns the variable bottomFragStatus, which determines if the fragment
      * should be displaying a loading message or not.
      */
@@ -405,36 +335,7 @@ public class CalMealsActivity extends SherlockFragmentActivity {
     public void setBottomFragStatus(String bottomFrag) {
         bottomFragStatus = bottomFrag;
     }
-
-    /** Sets the currentMeal to parameter Meal. */
-    public void setCurrentMeal(String meal) {
-        currentMeal = meal;
-
-    }
-
-    /** Returns the currentMeal. */
-    public String getCurrentMeal() {
-        if (currentMeal == null) {
-            resetMenu();
-            currentMeal = "Lunch";
-        }
-        return currentMeal;
-    }
-
-    /** Sets the current Dining Hall to Hall. */
-    public void setCurrentHall(Meals hall) {
-        currentHall = hall;
-    }
-
-    /** Returns the currentHall. */
-    public Meals getCurrentHall() {
-        if (currentHall == null) {
-            resetMenu();
-            currentHall = CurrentMenu.halls.Crossroads;
-        }
-        return currentHall;
-    }
-
+    
     public void resetMenu() {
         SharedPreferences prefs = getSharedPreferences("Prefs", 0);
         String json = prefs.getString("json", null);
@@ -448,8 +349,6 @@ public class CalMealsActivity extends SherlockFragmentActivity {
     private String debitBalanceTemporary;
     private String pointsBalanceTemporary;
     private String bottomFragStatus;
-    private String currentMeal;
-    private Meals currentHall;
     FragmentManager fragmentManager;
     SharedPreferences sharedPrefSettings;
     SharedPreferences.Editor editor;
