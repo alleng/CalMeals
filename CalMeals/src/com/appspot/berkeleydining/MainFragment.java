@@ -37,6 +37,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MenuActivity.class);
                 i.putExtra("currentMeal", "Breakfast");
+                i.putExtra("mealNumber", 0);
                 startActivity(i);
             }
 
@@ -49,6 +50,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MenuActivity.class);
                 i.putExtra("currentMeal", "Lunch");
+                i.putExtra("mealNumber", 1);
                 startActivity(i);
             }
 
@@ -60,6 +62,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MenuActivity.class);
                 i.putExtra("currentMeal", "Dinner");
+                i.putExtra("mealNumber", 2);
                 startActivity(i);
             }
 
@@ -71,6 +74,7 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), MenuActivity.class);
                 i.putExtra("currentMeal", "LateNight");
+                i.putExtra("mealNumber", 3);
                 startActivity(i);
             }
 

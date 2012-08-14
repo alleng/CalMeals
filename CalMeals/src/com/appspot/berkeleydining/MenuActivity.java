@@ -13,6 +13,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -23,17 +24,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
 
-public class MenuActivity extends SherlockFragmentActivity {
+public class MenuActivity extends SherlockFragmentActivity implements
+        ActionBar.OnNavigationListener {
     private String currentMeal;
     private Meals currentHall;
     SharedPreferences sharedPrefSettings;
@@ -45,7 +49,14 @@ public class MenuActivity extends SherlockFragmentActivity {
         setContentView(R.layout.main);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        Context context = getSupportActionBar().getThemedContext();
+        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.meals,
+                R.layout.sherlock_spinner_item);
+        list.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+        getSupportActionBar().setListNavigationCallbacks(list, this);
+        getSupportActionBar().setSelectedNavigationItem(getIntent().getIntExtra("mealNumber", 0));
         sharedPrefSettings = getSharedPreferences("Prefs", 0);
         editor = sharedPrefSettings.edit();
 
@@ -292,6 +303,28 @@ public class MenuActivity extends SherlockFragmentActivity {
             ft.add(R.id.BottomFrag, f2);
             ft.commit();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        switch (itemPosition) {
+        case 0:
+            setCurrentMeal("Breakfast");
+            break;
+        case 1:
+            setCurrentMeal("Lunch");
+            break;
+        case 2:
+            setCurrentMeal("Dinner");
+            break;
+        case 3:
+            setCurrentMeal("LateNight");
+            break;
+        }
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.Main, new MenusFragment(), "menu");
+        fragmentTransaction.commit();
+        return false;
     }
 
 }

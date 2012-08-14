@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,18 +35,6 @@ public class MenusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View v = inflater.inflate(R.layout.foodactivity_layout, container, false);
-        Handler refresh = new Handler();
-        refresh.post(new Runnable() {
-            @Override
-            public void run() {
-                setupCurrentMealButtons(v);
-            }
-        });
-
-        Button bb = (Button) v.findViewById(R.id.breakfastbutton);
-        Button lb = (Button) v.findViewById(R.id.lunchbutton);
-        Button db = (Button) v.findViewById(R.id.dinnerbutton);
-        Button lnb = (Button) v.findViewById(R.id.latenightbutton);
 
         final MyPagerAdapter adapter = new MyPagerAdapter();
         final ViewPager myPager = (ViewPager) v.findViewById(R.id.myPagerElement);
@@ -99,100 +86,7 @@ public class MenusFragment extends Fragment {
             }
 
         });
-
-        bb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MenuActivity) getActivity()).setCurrentMeal("Breakfast");
-                setupCurrentMealButtons(v);
-                int currentItem = myPager.getCurrentItem();
-                myPager.setAdapter(adapter);
-                myPager.setCurrentItem(1);
-                Handler refresh = new Handler();
-                refresh.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((MenuActivity) getActivity()).restoreBottomRatingFragment();
-                    }
-
-                });
-
-            }
-        });
-
-        lb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MenuActivity) getActivity()).setCurrentMeal("Lunch");
-                setupCurrentMealButtons(v);
-                int currentItem = myPager.getCurrentItem();
-                myPager.setAdapter(adapter);
-                myPager.setCurrentItem(1);
-                ((MenuActivity) getActivity()).restoreBottomRatingFragment();
-            }
-
-        });
-
-        db.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MenuActivity) getActivity()).setCurrentMeal("Dinner");
-                setupCurrentMealButtons(v);
-                int currentItem = myPager.getCurrentItem();
-                myPager.setAdapter(adapter);
-                myPager.setCurrentItem(1);
-                ((MenuActivity) getActivity()).restoreBottomRatingFragment();
-            }
-
-        });
-
-        lnb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MenuActivity) getActivity()).setCurrentMeal("LateNight");
-                setupCurrentMealButtons(v);
-                int currentItem = myPager.getCurrentItem();
-                myPager.setAdapter(adapter);
-                myPager.setCurrentItem(1);
-                ((MenuActivity) getActivity()).restoreBottomRatingFragment();
-            }
-
-        });
-
         return v;
-    }
-
-    private void setupCurrentMealButtons(View v) {
-        String currentMeal = ((MenuActivity) getActivity()).getCurrentMeal();
-        Button bb = (Button) v.findViewById(R.id.breakfastbutton);
-        Button lb = (Button) v.findViewById(R.id.lunchbutton);
-        Button db = (Button) v.findViewById(R.id.dinnerbutton);
-        Button lnb = (Button) v.findViewById(R.id.latenightbutton);
-        if (currentMeal.equals("Breakfast")) {
-            bb.setBackgroundColor(Color.DKGRAY);
-            lb.setBackgroundColor(Color.BLACK);
-            db.setBackgroundColor(Color.BLACK);
-            lnb.setBackgroundColor(Color.BLACK);
-            v.invalidate();
-        } else if (currentMeal.equals("Lunch")) {
-            bb.setBackgroundColor(Color.BLACK);
-            lb.setBackgroundColor(Color.DKGRAY);
-            db.setBackgroundColor(Color.BLACK);
-            lnb.setBackgroundColor(Color.BLACK);
-            v.invalidate();
-        } else if (currentMeal.equals("Dinner")) {
-            bb.setBackgroundColor(Color.BLACK);
-            lb.setBackgroundColor(Color.BLACK);
-            db.setBackgroundColor(Color.DKGRAY);
-            lnb.setBackgroundColor(Color.BLACK);
-            v.invalidate();
-        } else if (currentMeal.equals("LateNight")) {
-            bb.setBackgroundColor(Color.BLACK);
-            lb.setBackgroundColor(Color.BLACK);
-            db.setBackgroundColor(Color.BLACK);
-            lnb.setBackgroundColor(Color.DKGRAY);
-        }
-
     }
 
     private void fillCategoryList() {

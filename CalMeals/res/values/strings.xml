@@ -4,4 +4,11 @@
     <string name="hello">Hello World, DashboardTesterActivity!</string>
     <string name="app_name">CalMeals</string>
 
+    <string-array name="meals">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Late Night</item>
+    </string-array>
+
 </resources>
