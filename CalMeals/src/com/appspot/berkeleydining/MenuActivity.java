@@ -66,8 +66,13 @@ public class MenuActivity extends SherlockFragmentActivity implements
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.add(R.id.Title, new TitleBarFragment());
         fragmentTransaction.add(R.id.Main, new MenusFragment(), "menu");
-        fragmentTransaction.replace(R.id.BottomFrag, new RatingBarFragment());
-
+        Fragment f;
+        if (currentMeal.equals("LateNight")) {
+            f = new NoRatingBarFragment();
+        } else {
+            f = new RatingBarFragment();
+        }
+        fragmentTransaction.add(R.id.BottomFrag, f);
         fragmentTransaction.commit();
     }
 
@@ -302,6 +307,13 @@ public class MenuActivity extends SherlockFragmentActivity implements
             ft.remove(f);
             ft.add(R.id.BottomFrag, f2);
             ft.commit();
+        } else {
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.BottomFrag);
+            Fragment f2 = new RatingBarFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.remove(f);
+            ft.add(R.id.BottomFrag, f2);
+            ft.commit();
         }
     }
 
@@ -324,6 +336,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.Main, new MenusFragment(), "menu");
         fragmentTransaction.commit();
+        restoreBottomRatingFragment();
         return false;
     }
 

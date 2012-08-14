@@ -33,8 +33,6 @@ public class CalMealsActivity extends SherlockFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         sharedPrefSettings = getSharedPreferences("Prefs", 0);
         editor = sharedPrefSettings.edit();
 
