@@ -16,20 +16,18 @@ import android.view.ViewGroup;
 
 public class MealPointLoadingFragment extends Fragment {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	}
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.mpbuttonloading_layout, container,
-				false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.mpbuttonloading_layout, container, false);
 
-		return v;
+        return v;
 
-	}
+    }
 
 }

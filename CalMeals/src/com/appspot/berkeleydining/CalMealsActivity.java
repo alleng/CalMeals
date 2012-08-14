@@ -22,7 +22,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
 
 public class CalMealsActivity extends SherlockFragmentActivity {
@@ -46,12 +45,10 @@ public class CalMealsActivity extends SherlockFragmentActivity {
         debitBalanceTemporary = null;
         pointsBalanceTemporary = null;
         fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.add(R.id.Title, new TitleBarFragment());
         fragmentTransaction.add(R.id.Main, new MainFragment());
-        fragmentTransaction.replace(R.id.BottomFrag,
-                new MealPointButtonFragment());
+        fragmentTransaction.replace(R.id.BottomFrag, new MealPointButtonFragment());
 
         fragmentTransaction.commit();
     }
@@ -60,36 +57,27 @@ public class CalMealsActivity extends SherlockFragmentActivity {
     public void showLoginPrompt() {
         LayoutInflater factory = LayoutInflater.from(this);
         final View textEntryView = factory.inflate(R.layout.loginlayout, null);
-        AlertDialog infoRequest = new AlertDialog.Builder(this)
-                .setView(textEntryView)
+        AlertDialog infoRequest = new AlertDialog.Builder(this).setView(textEntryView)
                 .setTitle("Check Balances")
-                .setPositiveButton("Login",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
-                                final EditText et1 = (EditText) textEntryView
-                                        .findViewById(R.id.editText1);
-                                String userText = et1.getText().toString();
-                                final EditText et2 = (EditText) textEntryView
-                                        .findViewById(R.id.editText2);
-                                String passText = et2.getText().toString();
-                                final CheckBox cb = (CheckBox) textEntryView
-                                        .findViewById(R.id.checkBox1);
-                                rememberMeChecked = cb.isChecked();
+                .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        final EditText et1 = (EditText) textEntryView.findViewById(R.id.editText1);
+                        String userText = et1.getText().toString();
+                        final EditText et2 = (EditText) textEntryView.findViewById(R.id.editText2);
+                        String passText = et2.getText().toString();
+                        final CheckBox cb = (CheckBox) textEntryView.findViewById(R.id.checkBox1);
+                        rememberMeChecked = cb.isChecked();
 
-                                startFetchBalanceTask(userText, passText);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
+                        startFetchBalanceTask(userText, passText);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-                                dialog.dismiss();
-                            }
-                        }).create();
+                        dialog.dismiss();
+                    }
+                }).create();
         infoRequest.show();
     }
 
@@ -136,8 +124,7 @@ public class CalMealsActivity extends SherlockFragmentActivity {
         protected void onPreExecute() {
             Fragment f = fragmentManager.findFragmentById(R.id.BottomFrag);
             Fragment f2 = new MealPointLoadingFragment();
-            FragmentTransaction ft = getSupportFragmentManager()
-                    .beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.remove(f);
             ft.add(R.id.BottomFrag, f2);
             ft.commit();
@@ -147,29 +134,22 @@ public class CalMealsActivity extends SherlockFragmentActivity {
         protected void onPostExecute(Void unused) {
             if (loginFailed) {
                 setBottomFragStatus("unpressed");
-                final AlertDialog alertDialog = new AlertDialog.Builder(
-                        CalMealsActivity.this)
-                        .setTitle("Invalid Login")
-                        .setMessage("Please try again.")
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                            int which) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(CalMealsActivity.this)
+                        .setTitle("Invalid Login").setMessage("Please try again.")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                                        dialog.dismiss();
+                                dialog.dismiss();
 
-                                    }
-                                }).create();
+                            }
+                        }).create();
 
                 Fragment mf = fragmentManager.findFragmentById(R.id.Main);
-                if (mf.getClass().getName()
-                        .equals("com.appspot.berkeleydining.MainFragment")) {
-                    Fragment f = fragmentManager
-                            .findFragmentById(R.id.BottomFrag);
+                if (mf.getClass().getName().equals("com.appspot.berkeleydining.MainFragment")) {
+                    Fragment f = fragmentManager.findFragmentById(R.id.BottomFrag);
                     Fragment f2 = new MealPointButtonFragment();
-                    FragmentTransaction ft = getSupportFragmentManager()
-                            .beginTransaction();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.remove(f);
                     ft.add(R.id.BottomFrag, f2);
                     ft.commit();
@@ -186,11 +166,9 @@ public class CalMealsActivity extends SherlockFragmentActivity {
                 setBottomFragStatus("loaded");
                 Fragment mf = fragmentManager.findFragmentById(R.id.Main);
                 Fragment f = fragmentManager.findFragmentById(R.id.BottomFrag);
-                if (mf.getClass().getName()
-                        .equals("com.appspot.berkeleydining.MainFragment")) {
+                if (mf.getClass().getName().equals("com.appspot.berkeleydining.MainFragment")) {
                     Fragment f2 = new MealPointLoadedFragment();
-                    FragmentTransaction ft = getSupportFragmentManager()
-                            .beginTransaction();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.remove(f);
                     ft.add(R.id.BottomFrag, f2);
                     ft.commit();
@@ -215,14 +193,11 @@ public class CalMealsActivity extends SherlockFragmentActivity {
                         editor.remove("pointBalance");
                         debitBalanceTemporary = null;
                         pointsBalanceTemporary = null;
-                        startFetchBalanceTask(usernameTemporary,
-                                passwordTemporary);
+                        startFetchBalanceTask(usernameTemporary, passwordTemporary);
                         return;
                     }
-                    String usernameStorage = (sharedPrefSettings.getString(
-                            "balanceUsername", null));
-                    String passwordStorage = (sharedPrefSettings.getString(
-                            "balancePassword", null));
+                    String usernameStorage = (sharedPrefSettings.getString("balanceUsername", null));
+                    String passwordStorage = (sharedPrefSettings.getString("balancePassword", null));
                     if (usernameStorage != null && passwordStorage != null) {
                         editor.remove("debitBalance");
                         editor.remove("pointBalance");
@@ -233,11 +208,9 @@ public class CalMealsActivity extends SherlockFragmentActivity {
                     }
                 }
                 if (item == 1) {
-                    Fragment f = fragmentManager
-                            .findFragmentById(R.id.BottomFrag);
+                    Fragment f = fragmentManager.findFragmentById(R.id.BottomFrag);
                     Fragment f2 = new MealPointButtonFragment();
-                    FragmentTransaction ft = getSupportFragmentManager()
-                            .beginTransaction();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     ft.remove(f);
                     ft.add(R.id.BottomFrag, f2);
                     ft.commit();
@@ -301,21 +274,17 @@ public class CalMealsActivity extends SherlockFragmentActivity {
      * menu.
      */
     public void restoreBottomFragment() {
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (getBottomFragStatus().equals("loading")) {
-            fragmentTransaction.replace(R.id.BottomFrag,
-                    new MealPointLoadingFragment());
+            fragmentTransaction.replace(R.id.BottomFrag, new MealPointLoadingFragment());
             fragmentTransaction.commit();
         } else if (getBottomFragStatus().equals("loaded")) {
 
-            fragmentTransaction.replace(R.id.BottomFrag,
-                    new MealPointLoadedFragment());
+            fragmentTransaction.replace(R.id.BottomFrag, new MealPointLoadedFragment());
             fragmentTransaction.commit();
         } else {
 
-            fragmentTransaction.replace(R.id.BottomFrag,
-                    new MealPointButtonFragment());
+            fragmentTransaction.replace(R.id.BottomFrag, new MealPointButtonFragment());
             fragmentTransaction.commit();
         }
     }
@@ -335,7 +304,7 @@ public class CalMealsActivity extends SherlockFragmentActivity {
     public void setBottomFragStatus(String bottomFrag) {
         bottomFragStatus = bottomFrag;
     }
-    
+
     public void resetMenu() {
         SharedPreferences prefs = getSharedPreferences("Prefs", 0);
         String json = prefs.getString("json", null);

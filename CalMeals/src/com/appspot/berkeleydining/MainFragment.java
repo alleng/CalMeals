@@ -17,78 +17,73 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 public class MainFragment extends Fragment {
-	Fragment savedFrag = null;
+    Fragment savedFrag = null;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		((CalMealsActivity) getActivity()).resetMenu();
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((CalMealsActivity) getActivity()).resetMenu();
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		View v = inflater.inflate(R.layout.customdash, container, false);
+        View v = inflater.inflate(R.layout.customdash, container, false);
 
-		// Set up the Breakfast button
-		ImageButton breakfastButton = (ImageButton) v
-				.findViewById(R.id.breakfastbutton);
-		breakfastButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), MenuActivity.class);
-				i.putExtra("currentMeal", "Breakfast");
-				startActivity(i);
-			}
+        // Set up the Breakfast button
+        ImageButton breakfastButton = (ImageButton) v.findViewById(R.id.breakfastbutton);
+        breakfastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Breakfast");
+                startActivity(i);
+            }
 
-		});
+        });
 
-		// Set up the Lunch button
-		ImageButton lunchButton = (ImageButton) v
-				.findViewById(R.id.lunchbutton);
-		lunchButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), MenuActivity.class);
-				i.putExtra("currentMeal", "Lunch");
-				startActivity(i);
-			}
+        // Set up the Lunch button
+        ImageButton lunchButton = (ImageButton) v.findViewById(R.id.lunchbutton);
+        lunchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Lunch");
+                startActivity(i);
+            }
 
-		});
-		// Set up the Dinner button
-		ImageButton dinnerButton = (ImageButton) v
-				.findViewById(R.id.dinnerbutton);
-		dinnerButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), MenuActivity.class);
-				i.putExtra("currentMeal", "Dinner");
-				startActivity(i);
-			}
+        });
+        // Set up the Dinner button
+        ImageButton dinnerButton = (ImageButton) v.findViewById(R.id.dinnerbutton);
+        dinnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "Dinner");
+                startActivity(i);
+            }
 
-		});
-		// Set up the LateNight button
-		ImageButton latenightButton = (ImageButton) v
-				.findViewById(R.id.latenightbutton);
-		latenightButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent(getActivity(), MenuActivity.class);
-				i.putExtra("currentMeal", "LateNight");
-				startActivity(i);
-			}
+        });
+        // Set up the LateNight button
+        ImageButton latenightButton = (ImageButton) v.findViewById(R.id.latenightbutton);
+        latenightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), MenuActivity.class);
+                i.putExtra("currentMeal", "LateNight");
+                startActivity(i);
+            }
 
-		});
+        });
 
-		return v;
+        return v;
 
-	}
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		((CalMealsActivity) getActivity()).restoreBottomFragment();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((CalMealsActivity) getActivity()).restoreBottomFragment();
+    }
 
 }

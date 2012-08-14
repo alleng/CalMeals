@@ -10,24 +10,24 @@ package com.appspot.berkeleydining;
 
 public class Meals {
 
-	public Meal Breakfast = new Meal();
-	public Meal Lunch = new Meal();
-	public Meal Dinner = new Meal();
-	public Meal LateNight = new Meal();
+    public Meal Breakfast = new Meal();
+    public Meal Lunch = new Meal();
+    public Meal Dinner = new Meal();
+    public Meal LateNight = new Meal();
 
-	/** Returns a Meal based on String mealName */
-	public Meal getMeal(String mealName) {
-		if (mealName.equals("Breakfast")) {
-			return Breakfast;
-		} else if (mealName.equals("Lunch")) {
-			return Lunch;
-		} else if (mealName.equals("Dinner")) {
-			return Dinner;
-		} else if (mealName.equals("LateNight")) {
-			return LateNight;
-		} else {
-			return null;
-		}
-	}
+    /** Returns a Meal based on String mealName */
+    public Meal getMeal(String mealName) {
+        if (mealName.equals("Breakfast")) {
+            return Breakfast;
+        } else if (mealName.equals("Lunch")) {
+            return Lunch;
+        } else if (mealName.equals("Dinner")) {
+            return Dinner;
+        } else if (mealName.equals("LateNight")) {
+            return LateNight;
+        } else {
+            return null;
+        }
+    }
 
 }

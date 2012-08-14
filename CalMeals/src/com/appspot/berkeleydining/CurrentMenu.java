@@ -9,5 +9,5 @@
 package com.appspot.berkeleydining;
 
 public class CurrentMenu {
-	public static DiningHalls halls = null;
+    public static DiningHalls halls = null;
 }

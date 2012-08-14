@@ -19,51 +19,47 @@ import android.widget.TextView;
 
 public class MealPointLoadedFragment extends Fragment {
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-	}
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.mpbalances_layout, container, false);
-		TextView pointVal = (TextView) v.findViewById(R.id.pointsVal);
-		TextView debitVal = (TextView) v.findViewById(R.id.debitVal);
-		String pointText;
-		String debitText;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.mpbalances_layout, container, false);
+        TextView pointVal = (TextView) v.findViewById(R.id.pointsVal);
+        TextView debitVal = (TextView) v.findViewById(R.id.debitVal);
+        String pointText;
+        String debitText;
 
-		String temppoints = ((CalMealsActivity) getActivity())
-				.getpointsBalanceTemporary();
-		String tempdebit = ((CalMealsActivity) getActivity())
-				.getdebitBalanceTemporary();
+        String temppoints = ((CalMealsActivity) getActivity()).getpointsBalanceTemporary();
+        String tempdebit = ((CalMealsActivity) getActivity()).getdebitBalanceTemporary();
 
-		if (temppoints != null && tempdebit != null) {
-			pointText = temppoints;
+        if (temppoints != null && tempdebit != null) {
+            pointText = temppoints;
 
-			debitText = tempdebit;
-		} else {
+            debitText = tempdebit;
+        } else {
 
-			SharedPreferences settings = getActivity().getSharedPreferences(
-					"Prefs", 0);
-			pointText = settings.getString("pointBalance", "Error");
-			debitText = settings.getString("debitBalance", "Error");
-		}
-		pointVal.setText(pointText);
-		debitVal.setText(debitText);
-		final ImageButton button = (ImageButton) v.findViewById(R.id.button2);
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// if (!((DashboardTesterActivity)
-				// getActivity()).getBalanceRequested()) {
-				((CalMealsActivity) getActivity()).showOptions();
-				// }
-			}
-		});
-		return v;
+            SharedPreferences settings = getActivity().getSharedPreferences("Prefs", 0);
+            pointText = settings.getString("pointBalance", "Error");
+            debitText = settings.getString("debitBalance", "Error");
+        }
+        pointVal.setText(pointText);
+        debitVal.setText(debitText);
+        final ImageButton button = (ImageButton) v.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // if (!((DashboardTesterActivity)
+                // getActivity()).getBalanceRequested()) {
+                ((CalMealsActivity) getActivity()).showOptions();
+                // }
+            }
+        });
+        return v;
 
-	}
+    }
 
 }

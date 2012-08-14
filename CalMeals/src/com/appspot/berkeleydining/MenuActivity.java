@@ -39,6 +39,7 @@ public class MenuActivity extends SherlockFragmentActivity {
     SharedPreferences sharedPrefSettings;
     SharedPreferences.Editor editor;
 
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
@@ -51,10 +52,9 @@ public class MenuActivity extends SherlockFragmentActivity {
         // setBottomFragStatus("unpressed");
         currentMeal = getIntent().getStringExtra("currentMeal");
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager
-                .beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.add(R.id.Title, new TitleBarFragment());
-        fragmentTransaction.add(R.id.Main, new MenusFragment());
+        fragmentTransaction.add(R.id.Main, new MenusFragment(), "menu");
         fragmentTransaction.replace(R.id.BottomFrag, new RatingBarFragment());
 
         fragmentTransaction.commit();
@@ -83,98 +83,74 @@ public class MenuActivity extends SherlockFragmentActivity {
     /** Generates the prompt for rating individual menu meals. */
     public void showRatingAlert() {
         LayoutInflater factory = LayoutInflater.from(this);
-        final View rateEntryView = factory.inflate(R.layout.ratedialog_layout,
-                null);
-        TextView averageTv = (TextView) rateEntryView
-                .findViewById(R.id.aveargeRatingTextView);
-        TextView voteCountTv = (TextView) rateEntryView
-                .findViewById(R.id.numVotesTextView);
+        final View rateEntryView = factory.inflate(R.layout.ratedialog_layout, null);
+        TextView averageTv = (TextView) rateEntryView.findViewById(R.id.aveargeRatingTextView);
+        TextView voteCountTv = (TextView) rateEntryView.findViewById(R.id.numVotesTextView);
         float averageRating = currentHall.getMeal(currentMeal).rating;
         int voteCount = currentHall.getMeal(currentMeal).number_ratings;
         averageTv.setText("Current Rating: " + averageRating + " Stars");
         voteCountTv.setText("Total Votes: " + voteCount);
 
-        AlertDialog infoRequest = new AlertDialog.Builder(this)
-                .setView(rateEntryView)
+        AlertDialog infoRequest = new AlertDialog.Builder(this).setView(rateEntryView)
                 .setTitle("Rate this Meal")
-                .setPositiveButton("Submit",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-                                final RatingBar rb2 = (RatingBar) rateEntryView
-                                        .findViewById(R.id.ratingBar2);
-                                float rating = rb2.getRating();
-                                Log.i("input", "" + rating);
-                                String rateId;
-                                String memKey = "";
-                                int caseNumber = 0;
-                                if (currentHall
-                                        .equals(CurrentMenu.halls.Crossroads)) {
-                                    memKey = "CROSSROADS_"
-                                            + currentMeal.toUpperCase();
-                                    caseNumber = 0;
-                                }
-                                if (currentHall.equals(CurrentMenu.halls.Cafe3)) {
-                                    memKey = "CAFE3_"
-                                            + currentMeal.toUpperCase();
-                                    caseNumber = 1;
-                                }
-                                if (currentHall
-                                        .equals(CurrentMenu.halls.Foothill)) {
-                                    memKey = "FOOTHILL_"
-                                            + currentMeal.toUpperCase();
-                                    caseNumber = 2;
-                                }
-                                if (currentHall
-                                        .equals(CurrentMenu.halls.ClarkKerr)) {
-                                    memKey = "CKC_" + currentMeal.toUpperCase();
-                                    caseNumber = 3;
-                                }
-                                rb2.setRating(sharedPrefSettings.getFloat(
-                                        memKey, -1));
-                                String memKeyUse = memKey + "_USER";
-                                if (currentMeal.equals("Breakfast")) {
-                                    rateId = Integer
-                                            .toString(caseNumber * 3 + 0);
-                                    System.out.println(rateId);
-                                    System.out.println(rating);
-                                } else if (currentMeal.equals("Lunch")) {
-                                    rateId = Integer
-                                            .toString(caseNumber * 3 + 1);
-                                } else {
-                                    rateId = Integer
-                                            .toString(caseNumber * 3 + 2);
-                                }
-                                String[] params = {
-                                        rateId,
-                                        Float.toString(rating),
-                                        Float.toString(sharedPrefSettings
-                                                .getFloat(memKeyUse, -1)) };
+                        final RatingBar rb2 = (RatingBar) rateEntryView
+                                .findViewById(R.id.ratingBar2);
+                        float rating = rb2.getRating();
+                        Log.i("input", "" + rating);
+                        String rateId;
+                        String memKey = "";
+                        int caseNumber = 0;
+                        if (currentHall.equals(CurrentMenu.halls.Crossroads)) {
+                            memKey = "CROSSROADS_" + currentMeal.toUpperCase();
+                            caseNumber = 0;
+                        }
+                        if (currentHall.equals(CurrentMenu.halls.Cafe3)) {
+                            memKey = "CAFE3_" + currentMeal.toUpperCase();
+                            caseNumber = 1;
+                        }
+                        if (currentHall.equals(CurrentMenu.halls.Foothill)) {
+                            memKey = "FOOTHILL_" + currentMeal.toUpperCase();
+                            caseNumber = 2;
+                        }
+                        if (currentHall.equals(CurrentMenu.halls.ClarkKerr)) {
+                            memKey = "CKC_" + currentMeal.toUpperCase();
+                            caseNumber = 3;
+                        }
+                        rb2.setRating(sharedPrefSettings.getFloat(memKey, -1));
+                        String memKeyUse = memKey + "_USER";
+                        if (currentMeal.equals("Breakfast")) {
+                            rateId = Integer.toString(caseNumber * 3 + 0);
+                            System.out.println(rateId);
+                            System.out.println(rating);
+                        } else if (currentMeal.equals("Lunch")) {
+                            rateId = Integer.toString(caseNumber * 3 + 1);
+                        } else {
+                            rateId = Integer.toString(caseNumber * 3 + 2);
+                        }
+                        String[] params = { rateId, Float.toString(rating),
+                                Float.toString(sharedPrefSettings.getFloat(memKeyUse, -1)) };
 
-                                new Rate().execute(params);
+                        new Rate().execute(params);
 
-                                sharedPrefSettings.edit()
-                                        .putFloat(memKeyUse, rating).commit();
-                                Toast.makeText(getBaseContext(),
-                                        "Rating Submitted", Toast.LENGTH_SHORT)
-                                        .show();
-                                FragmentManager fragMan = getSupportFragmentManager();
-                                RatingBarFragment f = (RatingBarFragment) fragMan
-                                        .findFragmentById(R.id.BottomFrag);
-                                f.setRatingBar(f.v, rating);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                    int whichButton) {
+                        sharedPrefSettings.edit().putFloat(memKeyUse, rating).commit();
+                        Toast.makeText(getBaseContext(), "Rating Submitted", Toast.LENGTH_SHORT)
+                                .show();
+                        FragmentManager fragMan = getSupportFragmentManager();
+                        RatingBarFragment f = (RatingBarFragment) fragMan
+                                .findFragmentById(R.id.BottomFrag);
+                        f.setRatingBar(f.v, rating);
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-                                dialog.dismiss();
-                            }
-                        }).create();
+                        dialog.dismiss();
+                    }
+                }).create();
         infoRequest.show();
     }
 
@@ -202,28 +178,22 @@ public class MenuActivity extends SherlockFragmentActivity {
          * @param oldRating
          *            Rating to remove
          */
-        public void sendRating(String dishNumber, String rating,
-                String oldRating) {
+        public void sendRating(String dishNumber, String rating, String oldRating) {
             HttpClient client = new DefaultHttpClient();
             HttpParams params = client.getParams();
             HttpClientParams.setRedirecting(params, true);
-            HttpPost post = new HttpPost(
-                    "http://berkeleydining.appspot.com/rate");
+            HttpPost post = new HttpPost("http://berkeleydining.appspot.com/rate");
             try {
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-                        1);
-                nameValuePairs.add(new BasicNameValuePair("dish_number",
-                        dishNumber));
-                nameValuePairs
-                        .add(new BasicNameValuePair("dish_rating", rating));
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+                nameValuePairs.add(new BasicNameValuePair("dish_number", dishNumber));
+                nameValuePairs.add(new BasicNameValuePair("dish_rating", rating));
                 nameValuePairs.add(new BasicNameValuePair("remove", oldRating));
                 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 client.execute(post);
 
             } catch (Exception e) {
-                Toast.makeText(getBaseContext(), "Fail?", Toast.LENGTH_LONG)
-                        .show();
+                Toast.makeText(getBaseContext(), "Fail?", Toast.LENGTH_LONG).show();
             }
         }
 
@@ -261,8 +231,7 @@ public class MenuActivity extends SherlockFragmentActivity {
         protected void onPreExecute() {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
-            fragmentTransaction
-                    .replace(R.id.Main, new RefreshingMenuFragment());
+            fragmentTransaction.replace(R.id.Main, new RefreshingMenuFragment());
             fragmentTransaction.commit();
         }
 
@@ -271,7 +240,7 @@ public class MenuActivity extends SherlockFragmentActivity {
             CurrentMenu.halls = dining;
             FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                     .beginTransaction();
-            fragmentTransaction.replace(R.id.Main, new MenusFragment());
+            fragmentTransaction.replace(R.id.Main, new MenusFragment(), "menu");
             fragmentTransaction.commit();
         }
 
@@ -316,11 +285,9 @@ public class MenuActivity extends SherlockFragmentActivity {
     /** Removes the ratingbar when LateNight menu is displayed. */
     public void restoreBottomRatingFragment() {
         if (currentMeal.equals("LateNight")) {
-            Fragment f = getSupportFragmentManager().findFragmentById(
-                    R.id.BottomFrag);
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.BottomFrag);
             Fragment f2 = new NoRatingBarFragment();
-            FragmentTransaction ft = getSupportFragmentManager()
-                    .beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.remove(f);
             ft.add(R.id.BottomFrag, f2);
             ft.commit();

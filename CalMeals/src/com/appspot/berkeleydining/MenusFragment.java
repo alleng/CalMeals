@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +33,9 @@ public class MenusFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View v = inflater.inflate(R.layout.foodactivity_layout,
-                container, false);
+        final View v = inflater.inflate(R.layout.foodactivity_layout, container, false);
         Handler refresh = new Handler();
         refresh.post(new Runnable() {
             @Override
@@ -53,66 +50,55 @@ public class MenusFragment extends Fragment {
         Button lnb = (Button) v.findViewById(R.id.latenightbutton);
 
         final MyPagerAdapter adapter = new MyPagerAdapter();
-        final ViewPager myPager = (ViewPager) v
-                .findViewById(R.id.myPagerElement);
+        final ViewPager myPager = (ViewPager) v.findViewById(R.id.myPagerElement);
         myPager.setAdapter(adapter);
-        TitlePageIndicator tabIndicator = (TitlePageIndicator) v
-                .findViewById(R.id.tabs);
+        TitlePageIndicator tabIndicator = (TitlePageIndicator) v.findViewById(R.id.tabs);
         tabIndicator.setViewPager(myPager);
         tabIndicator.setTextColor(Color.GRAY);
         tabIndicator.setSelectedColor(Color.BLACK);
         tabIndicator.setCurrentItem(1);
-        tabIndicator
-                .setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        if (position == 0) {
-                            ((MenuActivity) getActivity())
-                                    .setCurrentHall(CurrentMenu.halls.Foothill);
-                        } else if (position == 1) {
-                            ((MenuActivity) getActivity())
-                                    .setCurrentHall(CurrentMenu.halls.Crossroads);
-                        } else if (position == 2) {
-                            ((MenuActivity) getActivity())
-                                    .setCurrentHall(CurrentMenu.halls.Cafe3);
-                        } else if (position == 3) {
-                            ((MenuActivity) getActivity())
-                                    .setCurrentHall(CurrentMenu.halls.ClarkKerr);
+        tabIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    ((MenuActivity) getActivity()).setCurrentHall(CurrentMenu.halls.Foothill);
+                } else if (position == 1) {
+                    ((MenuActivity) getActivity()).setCurrentHall(CurrentMenu.halls.Crossroads);
+                } else if (position == 2) {
+                    ((MenuActivity) getActivity()).setCurrentHall(CurrentMenu.halls.Cafe3);
+                } else if (position == 3) {
+                    ((MenuActivity) getActivity()).setCurrentHall(CurrentMenu.halls.ClarkKerr);
+                }
+
+                if (!((MenuActivity) getActivity()).getCurrentMeal().equals("LateNight")) {
+                    Handler refresh = new Handler();
+                    refresh.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Fragment f = fragmentManager.findFragmentById(R.id.BottomFrag);
+                            Fragment f2 = new RatingBarFragment();
+                            FragmentTransaction ft = getActivity().getSupportFragmentManager()
+                                    .beginTransaction();
+                            ft.remove(f);
+                            ft.add(R.id.BottomFrag, f2);
+                            ft.commit();
                         }
+                    });
 
-                        if (!((MenuActivity) getActivity()).getCurrentMeal()
-                                .equals("LateNight")) {
-                            Handler refresh = new Handler();
-                            refresh.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Fragment f = fragmentManager
-                                            .findFragmentById(R.id.BottomFrag);
-                                    Fragment f2 = new RatingBarFragment();
-                                    FragmentTransaction ft = getActivity()
-                                            .getSupportFragmentManager()
-                                            .beginTransaction();
-                                    ft.remove(f);
-                                    ft.add(R.id.BottomFrag, f2);
-                                    ft.commit();
-                                }
-                            });
+                }
+            }
 
-                        }
-                    }
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
 
-                    @Override
-                    public void onPageScrollStateChanged(int arg0) {
+            }
 
-                    }
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixel) {
 
-                    @Override
-                    public void onPageScrolled(int position,
-                            float positionOffset, int positionOffsetPixel) {
+            }
 
-                    }
-
-                });
+        });
 
         bb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +112,7 @@ public class MenusFragment extends Fragment {
                 refresh.post(new Runnable() {
                     @Override
                     public void run() {
-                        ((MenuActivity) getActivity())
-                                .restoreBottomRatingFragment();
+                        ((MenuActivity) getActivity()).restoreBottomRatingFragment();
                     }
 
                 });
@@ -235,8 +220,8 @@ public class MenusFragment extends Fragment {
         @Override
         public Object instantiateItem(View collection, int position) {
 
-            LayoutInflater inflater = (LayoutInflater) collection.getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) collection.getContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
             Meal displayMeal = null;
             Meals currentHall = null;
             int resId = 0;
@@ -244,8 +229,7 @@ public class MenusFragment extends Fragment {
             ListView lv = null;
             ArrayList<String> menu = null;
             MyCustomAdapter custAd = null;
-            String currentMeal = ((MenuActivity) getActivity())
-                    .getCurrentMeal();
+            String currentMeal = ((MenuActivity) getActivity()).getCurrentMeal();
             switch (position) {
             case 0:
                 resId = R.layout.tab_frag1_layout;
@@ -312,8 +296,7 @@ public class MenusFragment extends Fragment {
 
         @Override
         public String getPageTitle(int position) {
-            String[] titles = { "Foothill", "Crossroads", "Cafe 3",
-                    "Clark Kerr" };
+            String[] titles = { "Foothill", "Crossroads", "Cafe 3", "Clark Kerr" };
             return titles[position];
         }
     }
@@ -322,8 +305,7 @@ public class MenusFragment extends Fragment {
 
         private ArrayList<String> mData = new ArrayList<String>();
 
-        public MyCustomAdapter(Context context, int textViewResourceId,
-                ArrayList<String> objects) {
+        public MyCustomAdapter(Context context, int textViewResourceId, ArrayList<String> objects) {
             super(context, textViewResourceId, objects);
             mData = objects;
         }
