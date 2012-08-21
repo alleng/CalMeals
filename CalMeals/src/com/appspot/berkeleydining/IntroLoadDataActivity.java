@@ -24,8 +24,8 @@ import android.os.Bundle;
 import android.os.Vibrator;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
+import com.mixpanel.android.mpmetrics.MPMetrics;
 
 public class IntroLoadDataActivity extends SherlockActivity {
 
@@ -46,18 +46,23 @@ public class IntroLoadDataActivity extends SherlockActivity {
     Vibrator v;
     ArrayList<String> categoryList;
     AlertDialog alert = null;
-    GoogleAnalyticsTracker tracker;
+    MPMetrics mMPMetrics;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intropage_layout);
+        mMPMetrics = MPMetrics.getInstance(this, "a3bbfb33c58ef9c4348c3fcb1d38f830");
+        mMPMetrics.track("Load Data Activity", null);
         sharedPrefSettings = getSharedPreferences("Prefs", 0);
-        tracker = GoogleAnalyticsTracker.getInstance();
-        tracker.startNewSession("UA-31032997-1", this);
         getSupportActionBar().hide();
         downloadData();
+    }
+    
+    @Override
+    public void onPause() {
+        mMPMetrics.flushAll();
     }
 
     public void downloadData() {
@@ -179,9 +184,6 @@ public class IntroLoadDataActivity extends SherlockActivity {
             Gson gson = new Gson();
             String json = gson.toJson(dining);
             sharedPrefSettings.edit().putString("json", json).commit();
-            tracker.trackPageView("/menu");
-            tracker.dispatch();
-            tracker.stopSession();
             Intent myIntent = new Intent(getBaseContext(), CalMealsActivity.class);
             startActivityForResult(myIntent, 0);
         }

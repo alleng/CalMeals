@@ -33,8 +33,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.gson.Gson;
+import com.mixpanel.android.mpmetrics.MPMetrics;
 
 public class MenuActivity extends SherlockFragmentActivity implements
         ActionBar.OnNavigationListener {
@@ -42,12 +42,13 @@ public class MenuActivity extends SherlockFragmentActivity implements
     private Meals currentHall;
     SharedPreferences sharedPrefSettings;
     SharedPreferences.Editor editor;
+    MPMetrics mMPMetrics;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        mMPMetrics = MPMetrics.getInstance(this, "a3bbfb33c58ef9c4348c3fcb1d38f830");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Context context = getSupportActionBar().getThemedContext();
         ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.meals,
@@ -76,6 +77,11 @@ public class MenuActivity extends SherlockFragmentActivity implements
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onPause() {
+        mMPMetrics.flushAll();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.menu, menu);
@@ -195,6 +201,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
          *            Rating to remove
          */
         public void sendRating(String dishNumber, String rating, String oldRating) {
+        	mMPMetrics.track("Rating sent", null);
             HttpClient client = new DefaultHttpClient();
             HttpParams params = client.getParams();
             HttpClientParams.setRedirecting(params, true);
@@ -218,13 +225,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
     public void refreshMenuFragment() {
         RefreshMenuTask refreshTask = new RefreshMenuTask();
         refreshTask.execute((Void[]) null);
-
-        GoogleAnalyticsTracker tracker = GoogleAnalyticsTracker.getInstance();
-        tracker.startNewSession("UA-31032997-1", this);
-        tracker.setDebug(true);
-        tracker.trackPageView("/menu");
-        tracker.dispatch();
-        tracker.stopSession();
+        mMPMetrics.track("Refresh", null);
     }
 
     /**
