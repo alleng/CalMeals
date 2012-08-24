@@ -48,7 +48,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        mMPMetrics = MPMetrics.getInstance(this, "a3bbfb33c58ef9c4348c3fcb1d38f830");
+        mMPMetrics = ((CalMealsApplication) getApplication()).getMPInstance();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Context context = getSupportActionBar().getThemedContext();
         ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(context, R.array.meals,
@@ -60,12 +60,10 @@ public class MenuActivity extends SherlockFragmentActivity implements
         getSupportActionBar().setSelectedNavigationItem(getIntent().getIntExtra("mealNumber", 0));
         sharedPrefSettings = getSharedPreferences("Prefs", 0);
         editor = sharedPrefSettings.edit();
-
         // setBottomFragStatus("unpressed");
         currentMeal = getIntent().getStringExtra("currentMeal");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // fragmentTransaction.add(R.id.Title, new TitleBarFragment());
         fragmentTransaction.add(R.id.Main, new MenusFragment(), "menu");
         Fragment f;
         if (currentMeal.equals("LateNight")) {
@@ -79,9 +77,10 @@ public class MenuActivity extends SherlockFragmentActivity implements
 
     @Override
     public void onPause() {
+        super.onPause();
         mMPMetrics.flushAll();
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.menu, menu);
@@ -201,7 +200,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
          *            Rating to remove
          */
         public void sendRating(String dishNumber, String rating, String oldRating) {
-        	mMPMetrics.track("Rating sent", null);
+            mMPMetrics.track("Rating sent", null);
             HttpClient client = new DefaultHttpClient();
             HttpParams params = client.getParams();
             HttpClientParams.setRedirecting(params, true);
@@ -225,7 +224,7 @@ public class MenuActivity extends SherlockFragmentActivity implements
     public void refreshMenuFragment() {
         RefreshMenuTask refreshTask = new RefreshMenuTask();
         refreshTask.execute((Void[]) null);
-        mMPMetrics.track("Refresh", null);
+        mMPMetrics.track("Menu Download", null);
     }
 
     /**

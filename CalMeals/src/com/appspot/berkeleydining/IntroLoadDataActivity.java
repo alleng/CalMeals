@@ -53,15 +53,16 @@ public class IntroLoadDataActivity extends SherlockActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intropage_layout);
-        mMPMetrics = MPMetrics.getInstance(this, "a3bbfb33c58ef9c4348c3fcb1d38f830");
-        mMPMetrics.track("Load Data Activity", null);
+        mMPMetrics = ((CalMealsApplication) getApplication()).getMPInstance();
+        mMPMetrics.track("Menu Download", null);
         sharedPrefSettings = getSharedPreferences("Prefs", 0);
         getSupportActionBar().hide();
         downloadData();
     }
-    
+
     @Override
     public void onPause() {
+        super.onPause();
         mMPMetrics.flushAll();
     }
 
