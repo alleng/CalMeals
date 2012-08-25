@@ -1,0 +1,1 @@
+This application aims to improve the dining experience of CalDining. The app will display the day's dining hall menus to the user, with all the dishes sorted into intuitive categories. Also, the meal at each dining hall can be rated that day, so that other students can make an educated decision about which dining hall provides the most satisfying meal.
