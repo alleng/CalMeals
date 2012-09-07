@@ -77,10 +77,11 @@ public class IntroLoadDataActivity extends SherlockActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Download failed: Please check your connection and try again")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            downloadData();
+                            // downloadData();
+                            IntroLoadDataActivity.this.finish();
                         }
                     });
             alert = builder.create();
